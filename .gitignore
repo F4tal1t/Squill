@@ -1,0 +1,41 @@
+# Daily execution plans (sensitive project details)
+day1.md
+day2.md
+day3.md
+day4.md
+day5.md
+day6.md
+day7.md
+
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment
+.env
+.env.local
+.serverless/
+.localstack/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.log
+
+# AWS
+.aws/
+credentials
+
+# Qodo being Qodo even tho i am not using it
+.qodo

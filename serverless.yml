@@ -1,0 +1,62 @@
+service: squill
+frameworkVersion: '^4.0.0'
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: dev
+  deploymentBucket:
+    name: d1bbuck3t 
+  environment:
+    STAGE: ${self:provider.stage}
+  
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "*"
+
+functions:
+  ingestUsage:
+    handler: handler.ingest_usage
+    events:
+      - http:
+          path: usage
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    UsageEventsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: UsageEvents
+        AttributeDefinitions:
+          - AttributeName: customer_id
+            AttributeType: S
+          - AttributeName: timestamp
+            AttributeType: S
+        KeySchema:
+          - AttributeName: customer_id
+            KeyType: HASH
+          - AttributeName: timestamp
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+    
+    CustomersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Customers
+        AttributeDefinitions:
+          - AttributeName: customer_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: customer_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
