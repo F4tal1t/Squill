@@ -30,6 +30,38 @@ functions:
           path: usage
           method: post
           cors: true
+  
+  createCustomer:
+    handler: handler.create_customer
+    events:
+      - http:
+          path: customers
+          method: post
+          cors: true
+  
+  getCustomer:
+    handler: handler.get_customer
+    events:
+      - http:
+          path: customers/{customer_id}
+          method: get
+          cors: true
+  
+  updateCustomer:
+    handler: handler.update_customer
+    events:
+      - http:
+          path: customers/{customer_id}
+          method: put
+          cors: true
+  
+  getCustomerUsage:
+    handler: handler.get_customer_usage
+    events:
+      - http:
+          path: customers/{customer_id}/usage
+          method: get
+          cors: true
 
 resources:
   Resources:
