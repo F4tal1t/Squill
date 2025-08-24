@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles with original theme */
+* {
+  font-family: 'Courier New', monospace;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  background-color: #FAFAFA;
+  color: #000000;
+  line-height: 1.2;
+}
+
+/* Enhanced block fade animations */
+.block-fade {
+  animation: blockFade 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.stagger-1 { animation-delay: 0.2s; }
+.stagger-2 { animation-delay: 0.4s; }
+.stagger-3 { animation-delay: 0.6s; }
+.stagger-4 { animation-delay: 0.8s; }
+
+@keyframes blockFade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(10px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Block-style components */
+.block-card {
+  background: #FFFFFF;
+  border: 3px solid #E5E5E5;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.block-card:hover {
+  border-color: #150DF7;
+  box-shadow: 0 10px 15px -3px rgba(21, 13, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Button styles */
+.btn-block {
+  background: #150DF7;
+  color: #FFFFFF;
+  border: 3px solid #150DF7;
+  padding: 12px 24px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-block:hover {
+  background: #FFFFFF;
+  color: #150DF7;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(21, 13, 247, 0.2);
+}
+
+/* Input styles */
+.input-block {
+  background: #FFFFFF;
+  border: 3px solid #E5E5E5;
+  padding: 12px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.input-block:focus {
+  outline: none;
+  border-color: #150DF7;
+  box-shadow: 0 0 0 3px rgba(21, 13, 247, 0.1);
+}
+
+.input-block::placeholder {
+  color: #A3A3A3;
+}
+
+/* Input with icon spacing */
+.input-with-icon {
+  padding-left: 48px !important;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #A3A3A3;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #150DF7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0F07B1;
+}
+
+/* Loading animation */
+.loading-block {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Subtle grid pattern for Studio Innate feel */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(21, 13, 247, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 13, 247, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Block elements start invisible for fade-in */
+.block-fade {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
