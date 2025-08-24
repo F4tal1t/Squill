@@ -4,6 +4,13 @@ import os
 from datetime import datetime
 from decimal import Decimal
 from botocore.exceptions import ClientError
+from utils.pricing import (
+    calculate_squill_billing, 
+    calculate_client_billing, 
+    validate_subscription_limits,
+    get_pricing_tier_info,
+    SUBSCRIPTION_TIERS
+)
 
 # Load environment variables from .env file
 try:
@@ -16,6 +23,8 @@ except ImportError:
 region = os.environ.get('AWS_DEFAULT_REGION', 'us-east-1')
 dynamodb = boto3.resource('dynamodb', region_name=region)
 usage_table = dynamodb.Table('UsageEvents')
+subscriptions_table = dynamodb.Table('Subscriptions')
+pricing_rules_table = dynamodb.Table('PricingRules')
 
 
 def ingest_usage(event, context):

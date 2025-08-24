@@ -62,6 +62,38 @@ functions:
           path: customers/{customer_id}/usage
           method: get
           cors: true
+  
+  createSubscription:
+    handler: pricing_handlers.create_subscription
+    events:
+      - http:
+          path: subscriptions
+          method: post
+          cors: true
+  
+  getSubscription:
+    handler: pricing_handlers.get_subscription
+    events:
+      - http:
+          path: subscriptions/{client_id}
+          method: get
+          cors: true
+  
+  calculatePricing:
+    handler: pricing_handlers.calculate_pricing
+    events:
+      - http:
+          path: pricing/calculate
+          method: post
+          cors: true
+  
+  updatePricingRules:
+    handler: pricing_handlers.update_pricing_rules
+    events:
+      - http:
+          path: pricing/rules/{client_id}
+          method: put
+          cors: true
 
 resources:
   Resources:
@@ -90,5 +122,29 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: customer_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    
+    SubscriptionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Subscriptions
+        AttributeDefinitions:
+          - AttributeName: client_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: client_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    
+    PricingRulesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: PricingRules
+        AttributeDefinitions:
+          - AttributeName: client_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: client_id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
