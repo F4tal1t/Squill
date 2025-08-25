@@ -9,34 +9,81 @@ day7.md
 plan.md
 bruh.md
 insomnia_tests.md
-# Dependencies
-node_modules/
-__pycache__/
-*.pyc
-.pytest_cache/
-
-# Environment
+# Environment variables
 .env
 .env.local
-.serverless/
-.localstack/
+.env.development.local
+.env.test.local
+.env.production.local
 
-# IDE
+# AWS credentials
+.aws/
+aws-credentials.json
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js
+.next/
+out/
+
+# Production build
+build/
+dist/
+
+# IDE files
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
 
-# Build outputs
-dist/
-build/
+# Logs
+logs/
 *.log
 
-# AWS
-.aws/
-credentials
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
 
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Serverless
+.serverless/
+
+# Test data scripts (not for production)
+create_test_data.py
+test_*.py
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database files
+*.db
+*.sqlite
+
+# Cache
+.cache/
+.parcel-cache/
 # Qodo being Qodo even tho i am not using it
 .qodo

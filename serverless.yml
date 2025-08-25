@@ -94,6 +94,30 @@ functions:
           path: pricing/rules/{client_id}
           method: put
           cors: true
+  
+  generateInvoice:
+    handler: billing_handlers.generate_invoice
+    events:
+      - http:
+          path: billing/generate
+          method: post
+          cors: true
+  
+  getInvoices:
+    handler: billing_handlers.get_invoices
+    events:
+      - http:
+          path: invoices/{customer_id}
+          method: get
+          cors: true
+  
+  getAnalytics:
+    handler: billing_handlers.get_analytics
+    events:
+      - http:
+          path: analytics
+          method: get
+          cors: true
 
 resources:
   Resources:
@@ -146,5 +170,17 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: client_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    
+    InvoicesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Invoices
+        AttributeDefinitions:
+          - AttributeName: invoice_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: invoice_id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
