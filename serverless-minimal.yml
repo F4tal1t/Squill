@@ -1,0 +1,61 @@
+service: squill-minimal
+frameworkVersion: '^4.0.0'
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'prod'}
+  deploymentBucket:
+    name: d1bbuck3t 
+  environment:
+    STAGE: ${self:provider.stage}
+  
+  # Minimal IAM permissions
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "*"
+
+# Only essential functions for Day 7 demo
+functions:
+  ingestUsage:
+    handler: handler.ingest_usage
+    events:
+      - http:
+          path: usage
+          method: post
+          cors: true
+  
+  getAnalytics:
+    handler: handler.get_analytics
+    events:
+      - http:
+          path: analytics
+          method: get
+          cors: true
+
+# Minimal resources for Day 7
+resources:
+  Resources:
+    UsageEventsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: UsageEvents-${self:provider.stage}
+        AttributeDefinitions:
+          - AttributeName: customer_id
+            AttributeType: S
+          - AttributeName: timestamp
+            AttributeType: S
+        KeySchema:
+          - AttributeName: customer_id
+            KeyType: HASH
+          - AttributeName: timestamp
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST

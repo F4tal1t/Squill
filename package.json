@@ -1,0 +1,39 @@
+{
+  "name": "squill-billing-platform",
+  "version": "1.0.0",
+  "description": "Serverless billing automation platform built on AWS",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "deploy:prod": "serverless deploy --stage prod",
+    "fix:day7": "node scripts/fix-day7-issues.js",
+    "setup:production": "node scripts/setup-production.js",
+    "deploy:frontend": "node scripts/deploy-frontend.js",
+    "deploy:full": "npm run fix:day7 && npm run setup:production && npm run deploy:frontend",
+    "deploy:day7": "node scripts/deploy-day7-windows.js",
+    "complete:day7": "node scripts/complete-day7.js",
+    "fix:s3": "node scripts/fix-s3-public-access.js",
+    "test": "pytest tests/",
+    "start:frontend": "cd frontend && npm start",
+    "build:frontend": "cd frontend && npm run build",
+    "logs": "serverless logs -f ingestUsage -t",
+    "remove": "serverless remove"
+  },
+  "keywords": [
+    "serverless",
+    "aws",
+    "billing",
+    "automation",
+    "lambda",
+    "dynamodb",
+    "react"
+  ],
+  "author": "Squill Team",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless": "^3.38.0"
+  },
+  "dependencies": {
+    "boto3": "^1.0.0"
+  }
+}

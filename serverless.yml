@@ -5,11 +5,19 @@ provider:
   name: aws
   runtime: python3.12
   region: us-east-1
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   deploymentBucket:
     name: d1bbuck3t 
   environment:
     STAGE: ${self:provider.stage}
+  
+  # Day 7: Production monitoring and tracing
+  tracing:
+    lambda: true
+    apiGateway: true
+  
+  logs:
+    restApi: true
   
   iamRoleStatements:
     - Effect: Allow
@@ -20,6 +28,22 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:PutObject
+        - s3:DeleteObject
+      Resource: "arn:aws:s3:::squill-invoices-*/*"
+    - Effect: Allow
+      Action:
+        - ses:SendEmail
+        - ses:SendRawEmail
       Resource: "*"
 
 functions:

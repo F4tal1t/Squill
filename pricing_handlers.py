@@ -13,8 +13,8 @@ from utils.pricing import (
 # Initialize DynamoDB resource
 region = os.environ.get('AWS_DEFAULT_REGION', 'us-east-1')
 dynamodb = boto3.resource('dynamodb', region_name=region)
-subscriptions_table = dynamodb.Table('Subscriptions')
-pricing_rules_table = dynamodb.Table('PricingRules')
+subscriptions_table = dynamodb.Table(f'Subscriptions-{os.environ.get("STAGE", "dev")}')
+pricing_rules_table = dynamodb.Table(f'PricingRules-{os.environ.get("STAGE", "dev")}')
 
 
 def create_subscription(event, context):

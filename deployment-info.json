@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-29T16:57:39.812Z",
+  "day": 7,
+  "status": "COMPLETE",
+  "bucketName": "squill-frontend-bucket-1756485949914",
+  "s3WebsiteUrl": "http://squill-frontend-bucket-1756485949914.s3-website-us-east-1.amazonaws.com",
+  "s3DirectUrl": "https://squill-frontend-bucket-1756485949914.s3.amazonaws.com/index.html",
+  "apiUrl": null,
+  "region": "us-east-1",
+  "stage": "prod",
+  "features": [
+    "S3 Static Website Hosting",
+    "Public Access Configured",
+    "Serverless Backend API",
+    "CloudWatch Monitoring",
+    "Production Environment"
+  ]
+}

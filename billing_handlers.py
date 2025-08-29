@@ -8,9 +8,9 @@ from utils.pricing import calculate_squill_billing, calculate_client_billing
 # Initialize DynamoDB
 region = os.environ.get('AWS_DEFAULT_REGION', 'us-east-1')
 dynamodb = boto3.resource('dynamodb', region_name=region)
-invoices_table = dynamodb.Table('Invoices')
-customers_table = dynamodb.Table('Customers')
-usage_table = dynamodb.Table('UsageEvents')
+invoices_table = dynamodb.Table(f'Invoices-{os.environ.get("STAGE", "dev")}')
+customers_table = dynamodb.Table(f'Customers-{os.environ.get("STAGE", "dev")}')
+usage_table = dynamodb.Table(f'UsageEvents-{os.environ.get("STAGE", "dev")}')
 subscriptions_table = dynamodb.Table('Subscriptions')
 
 def generate_invoice(event, context):
