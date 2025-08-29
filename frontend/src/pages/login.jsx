@@ -1,26 +1,47 @@
 import { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff, Mail, Lock, AlertCircle, ArrowLeft } from 'lucide-react';
+import { 
+  BrutalButton, 
+  BrutalCard, 
+  BrutalInput, 
+  BrutalLabel, 
+  BrutalLogo, 
+  BrutalContainer 
+} from '../components/ui/brutal';
+import ApiService from '../services/api';
 
-export default function Login({ onLogin }) {
+export default function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
     
-    setTimeout(() => {
-      setIsLoading(false);
-      if (formData.email && formData.password) {
-        onLogin(formData.email);
-      } else {
-        alert('PLEASE ENTER CREDENTIALS');
+    try {
+      // Handle demo login directly
+      if (formData.email === 'admin@squill.com' && formData.password === 'demo123') {
+        const demoToken = 'demo_token_' + Date.now();
+        localStorage.setItem('auth_token', demoToken);
+        navigate('/dashboard');
+        return;
       }
-    }, 1200);
+      
+      const response = await ApiService.login(formData.email, formData.password);
+      navigate('/dashboard');
+    } catch (err) {
+      setError('INVALID CREDENTIALS. USE DEMO LOGIN.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -30,111 +51,156 @@ export default function Login({ onLogin }) {
     });
   };
 
+  const goBack = () => {
+    navigate('/');
+  };
+
   return (
-    <div className="min-h-screen bg-primary flex items-center justify-center p-4 grid-pattern">
-      <div className="w-full max-w-md">
-        <div className="block-card p-8 block-fade">
-          {/* Logo */}
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-primary border-3 border-gray-200 flex items-center justify-center mx-auto mb-4 shadow-block">
-              <span className="text-white font-mono font-bold text-2xl">S</span>
-            </div>
-            <h1 className="text-2xl font-mono font-bold text-gray-900 uppercase tracking-wider">WELCOME BACK</h1>
-            <p className="text-xs font-mono text-gray-500 uppercase tracking-wider mt-2 font-bold">SIGN IN TO YOUR SQUILL ACCOUNT</p>
-          </div>
-
-          {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Input */}
-            <div className="space-y-2">
-              <label className="text-xs font-mono font-bold text-gray-700 uppercase tracking-wider">EMAIL ADDRESS</label>
-              <div className="relative">
-                <Mail size={16} className="input-icon" strokeWidth={2} />
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="ENTER YOUR EMAIL"
-                  className="input-block input-with-icon w-full pr-4 py-3 text-sm"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Password Input */}
-            <div className="space-y-2">
-              <label className="text-xs font-mono font-bold text-gray-700 uppercase tracking-wider">PASSWORD</label>
-              <div className="relative">
-                <Lock size={16} className="input-icon" strokeWidth={2} />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  placeholder="ENTER YOUR PASSWORD"
-                  className="input-block input-with-icon w-full pr-12 py-3 text-sm"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  {showPassword ? <EyeOff size={16} strokeWidth={2} /> : <Eye size={16} strokeWidth={2} />}
-                </button>
-              </div>
-            </div>
-
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 text-primary border-3 border-gray-300 focus:ring-primary"
-                />
-                <span className="ml-2 text-xs font-mono text-gray-600 uppercase tracking-wider font-bold">REMEMBER ME</span>
-              </label>
-              <a href="#" className="text-xs font-mono text-primary hover:text-gray-900 transition-colors uppercase tracking-wider font-bold">
-                FORGOT PASSWORD?
-              </a>
-            </div>
-
-            {/* Login Button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="btn-block w-full disabled:opacity-50 disabled:cursor-not-allowed"
+    <BrutalContainer>
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <div className="w-full max-w-md">
+          
+          {/* Back Button */}
+          <div className="mb-8">
+            <BrutalButton 
+              onClick={goBack}
+              variant="secondary"
+              size="sm"
+              className="flex items-center"
             >
-              {isLoading ? (
-                <div className="flex items-center justify-center">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent loading-block mr-2"></div>
-                  SIGNING IN...
-                </div>
-              ) : (
-                'SIGN IN'
-              )}
-            </button>
-          </form>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              BACK
+            </BrutalButton>
+          </div>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-gray-100 border-3 border-gray-200">
-            <p className="text-xs font-mono text-gray-600 text-center mb-2 uppercase tracking-wider font-bold">DEMO CREDENTIALS:</p>
-            <div className="text-xs font-mono text-gray-500 space-y-1 text-center uppercase font-bold">
-              <div>EMAIL: ADMIN@SQUILL.COM</div>
-              <div>PASSWORD: DEMO123</div>
+          {/* Login Card */}
+          <BrutalCard color="white" className="p-8 max-w-md w-full">
+            {/* Logo Section */}
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-primary border-4 border-brutal-black mx-auto mb-4 flex items-center justify-center">
+                {/* Logo placeholder - square area for your logo */}
+                <span className="text-brutal-black font-brutal text-2xl">S</span>
+              </div>
+              <h1 className="font-brutal text-3xl text-brutal-black mb-2">
+                SQUILL LOGIN
+              </h1>
+              <p className="font-mono-brutal text-sm text-brutal-gray">
+                ACCESS YOUR BILLING DASHBOARD
+              </p>
             </div>
-          </div>
 
-          {/* Sign Up Link */}
-          <div className="text-center mt-6">
-            <span className="text-xs font-mono text-gray-600 uppercase tracking-wider font-bold">DON'T HAVE AN ACCOUNT? </span>
-            <a href="#" className="text-xs font-mono text-primary hover:text-gray-900 font-bold transition-colors uppercase tracking-wider">
-              SIGN UP
-            </a>
-          </div>
+            {/* Login Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              
+              {/* Email Input */}
+              <div>
+                <BrutalLabel>EMAIL ADDRESS</BrutalLabel>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-brutal-gray z-10" />
+                  <BrutalInput
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="ENTER YOUR EMAIL"
+                    className="pl-12"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <BrutalLabel>PASSWORD</BrutalLabel>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-brutal-gray z-10" />
+                  <BrutalInput
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="ENTER YOUR PASSWORD"
+                    className="pl-12 pr-12"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brutal-gray hover:text-primary transition-colors z-10"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Login Button */}
+              <BrutalButton
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-4 text-lg"
+                variant="primary"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="w-5 h-5 border-4 border-brutal-black border-t-transparent animate-spin mr-3"></div>
+                    SIGNING IN...
+                  </div>
+                ) : (
+                  'LOGIN'
+                )}
+              </BrutalButton>
+            </form>
+
+            {/* Error Message */}
+            {error && (
+              <div className="mt-6 p-4 bg-error border-4 border-brutal-black">
+                <div className="flex items-center space-x-3">
+                  <AlertCircle className="h-5 w-5 text-brutal-white flex-shrink-0" />
+                  <p className="font-mono-brutal text-sm text-brutal-white">
+                    {error}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Demo Credentials */}
+            <div className="mt-8 p-6 bg-primary border-4 border-brutal-black">
+              <div className="text-center">
+                <h3 className="font-brutal text-lg mb-4 text-brutal-black">
+                  DEMO CREDENTIALS
+                </h3>
+                <div className="font-mono-brutal text-sm space-y-2">
+                  <div className="p-2 bg-brutal-black text-brutal-white">
+                    EMAIL: admin@squill.com
+                  </div>
+                  <div className="p-2 bg-brutal-black text-brutal-white">
+                    PASSWORD: demo123
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Fill Button */}
+            <div className="mt-6 text-center">
+              <BrutalButton
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => {
+                  setFormData({
+                    email: 'admin@squill.com',
+                    password: 'demo123'
+                  });
+                }}
+              >
+                QUICK FILL DEMO
+              </BrutalButton>
+            </div>
+          </BrutalCard>
+
+          
         </div>
       </div>
-    </div>
+    </BrutalContainer>
   );
 }

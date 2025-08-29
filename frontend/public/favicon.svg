@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" fill="#141414"/>
+  
+  <!-- Border -->
+  <rect x="2" y="2" width="28" height="28" fill="none" stroke="#20B2AA" stroke-width="2"/>
+  
+  <!-- Letter S -->
+  <path d="M8 10 L8 8 L24 8 L24 12 L16 12 L16 16 L24 16 L24 24 L8 24 L8 20 L16 20 L16 16" 
+        fill="#20B2AA" 
+        stroke="#141414" 
+        stroke-width="1"/>
+  
+  <!-- Brutal shadow effect -->
+  <rect x="4" y="4" width="28" height="28" fill="none" stroke="#20B2AA" stroke-width="1" opacity="0.5"/>
+</svg>

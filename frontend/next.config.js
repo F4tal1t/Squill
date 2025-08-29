@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://a953zu5bnc.execute-api.us-east-1.amazonaws.com/dev/:path*',
+        destination: process.env.API_BASE_URL + '/:path*',
       },
     ];
   },

@@ -1,26 +1,18 @@
-import { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Landing from './landing';
 import Login from './login';
-import DemoIntegrated from './demo-integrated';
+import Dashboard from './dashboard';
 
-
-export default function Home() {
-  const [user, setUser] = useState(null);
-
-  const handleLogin = (email) => {
-    setUser(email);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-  };
-
+export default function App() {
   return (
-    <div>
-      {user ? (
-        <DemoIntegrated user={user} onLogout={handleLogout} />
-      ) : (
-        <Login onLogin={handleLogin} />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 }

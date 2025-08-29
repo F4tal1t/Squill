@@ -1,155 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles with original theme */
-* {
-  font-family: 'Courier New', monospace;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Courier New', monospace;
-  background-color: #FAFAFA;
-  color: #000000;
-  line-height: 1.2;
-}
-
-/* Enhanced block fade animations */
-.block-fade {
-  animation: blockFade 0.8s ease-out;
-  animation-fill-mode: both;
-}
-
-.stagger-1 { animation-delay: 0.2s; }
-.stagger-2 { animation-delay: 0.4s; }
-.stagger-3 { animation-delay: 0.6s; }
-.stagger-4 { animation-delay: 0.8s; }
-
-@keyframes blockFade {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  50% {
-    opacity: 0.5;
-    transform: translateY(10px) scale(0.98);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+@layer base {
+  :root {
+    /* Neobrutalist Sea Green Color System */
+    --primary: 158 64% 52%;              /* #20B2AA - Sea Green */
+    --primary-light: 158 64% 62%;        /* #3CBDB6 - Light Sea Green */
+    --primary-dark: 158 64% 42%;         /* #1A9B94 - Dark Sea Green */
+    --primary-foreground: 0 0% 8%;       /* #141414 - Black text on sea green */
+    
+    /* Neobrutalist Base Colors */
+    --brutal-black: 0 0% 8%;             /* #141414 - True black */
+    --brutal-white: 0 0% 98%;            /* #FAFAFA - Off white */
+    --brutal-gray: 0 0% 20%;             /* #333333 - Dark gray */
+    --brutal-light-gray: 0 0% 85%;       /* #D9D9D9 - Light gray */
+    
+    /* Accent Colors */
+    --success: 142 76% 36%;              /* #16A34A - Green */
+    --warning: 38 92% 50%;               /* #F59E0B - Orange */
+    --error: 0 84% 60%;                  /* #EF4444 - Red */
+    --info: 199 89% 48%;                 /* #0EA5E9 - Blue */
+    
+    /* System Colors */
+    --background: 0 0% 8%;               /* Black background */
+    --foreground: 0 0% 98%;              /* White text */
+    --card: 0 0% 98%;                    /* White cards */
+    --card-foreground: 0 0% 8%;          /* Black text on cards */
+    --border: 0 0% 8%;                   /* Black borders */
+    --input: 0 0% 98%;                   /* White inputs */
+    --ring: 158 64% 52%;                 /* Sea green focus ring */
+    --radius: 0rem;                      /* No border radius for brutal style */
   }
 }
 
-/* Block-style components */
-.block-card {
-  background: #FFFFFF;
-  border: 3px solid #E5E5E5;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', 'Arial Black', sans-serif;
+    font-weight: 600;
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100vw;
+  }
+  
+  html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  #root {
+    min-height: 100vh;
+    width: 100%;
+  }
 }
 
-.block-card:hover {
-  border-color: #150DF7;
-  box-shadow: 0 10px 15px -3px rgba(21, 13, 247, 0.1);
-  transform: translateY(-2px);
-}
-
-/* Button styles */
-.btn-block {
-  background: #150DF7;
-  color: #FFFFFF;
-  border: 3px solid #150DF7;
-  padding: 12px 24px;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  font-weight: bold;
+/* Neobrutalist Typography */
+.font-brutal {
+  font-family: 'Space Grotesk', 'Arial Black', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.btn-block:hover {
-  background: #FFFFFF;
-  color: #150DF7;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(21, 13, 247, 0.2);
-}
-
-/* Input styles */
-.input-block {
-  background: #FFFFFF;
-  border: 3px solid #E5E5E5;
-  padding: 12px 16px;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  font-weight: bold;
+.font-mono-brutal {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-weight: 600;
   text-transform: uppercase;
-  transition: all 0.2s ease;
 }
 
-.input-block:focus {
-  outline: none;
-  border-color: #150DF7;
-  box-shadow: 0 0 0 3px rgba(21, 13, 247, 0.1);
+/* Neobrutalist Components */
+.brutal-card {
+  @apply bg-brutal-white border-4 border-brutal-black;
+  box-shadow: 8px 8px 0px 0px hsl(var(--brutal-black));
+  transition: all 0.15s ease;
 }
 
-.input-block::placeholder {
-  color: #A3A3A3;
+.brutal-card:hover {
+  box-shadow: 4px 4px 0px 0px hsl(var(--brutal-black));
+  transform: translate(4px, 4px);
 }
 
-/* Input with icon spacing */
-.input-with-icon {
-  padding-left: 48px !important;
+.brutal-button {
+  @apply bg-primary border-4 border-brutal-black text-brutal-black font-brutal px-6 py-3;
+  box-shadow: 4px 4px 0px 0px hsl(var(--brutal-black));
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  font-weight: 800;
 }
 
-.input-icon {
+.brutal-button:hover {
+  box-shadow: 2px 2px 0px 0px hsl(var(--brutal-black));
+  transform: translate(2px, 2px);
+}
+
+.brutal-button:active {
+  box-shadow: 0px 0px 0px 0px hsl(var(--brutal-black));
+  transform: translate(4px, 4px);
+}
+
+.brutal-input {
+  @apply bg-brutal-white border-4 border-brutal-black p-4 font-mono-brutal text-brutal-black;
+  box-shadow: inset 4px 4px 0px 0px hsl(var(--brutal-gray));
+}
+
+.brutal-input:focus {
+  @apply border-primary outline-none;
+  box-shadow: inset 4px 4px 0px 0px hsl(var(--primary));
+}
+
+/* Black Background with Sea Green Accents */
+.brutal-bg {
+  background: hsl(var(--brutal-black));
+  position: relative;
+}
+
+.brutal-bg::after {
+  content: '';
   position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse 600px 400px at top right, 
+      hsla(var(--primary), 0.1) 0%, 
+      transparent 50%),
+    radial-gradient(ellipse 800px 600px at bottom left, 
+      hsla(var(--primary), 0.05) 0%, 
+      transparent 50%);
   pointer-events: none;
-  color: #A3A3A3;
+  z-index: 0;
 }
 
-/* Scrollbar */
+.brutal-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Neobrutalist Animations */
+@keyframes brutalPop {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.05) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.brutal-hover:hover {
+  animation: brutalPop 0.3s ease;
+}
+
+.brutal-slide-in {
+  animation: slideInBrutal 0.5s ease-out;
+}
+
+@keyframes slideInBrutal {
+  from {
+    transform: translateX(-100px) rotate(-5deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.brutal-rotate-1 {
+  transform: rotate(1deg);
+}
+
+.brutal-rotate-2 {
+  transform: rotate(2deg);
+}
+
+.brutal-rotate-neg-1 {
+  transform: rotate(-1deg);
+}
+
+.brutal-rotate-neg-2 {
+  transform: rotate(-2deg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .brutal-card {
+    transform: none !important;
+    box-shadow: 4px 4px 0px 0px hsl(var(--brutal-black));
+  }
+  
+  .brutal-card:hover {
+    transform: none !important;
+    box-shadow: 4px 4px 0px 0px hsl(var(--brutal-black));
+  }
+  
+  .brutal-rotate-1,
+  .brutal-rotate-2,
+  .brutal-rotate-neg-1,
+  .brutal-rotate-neg-2 {
+    transform: none !important;
+  }
+}
+
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5F5F5;
+  background: hsl(var(--brutal-black));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #150DF7;
-  border-radius: 4px;
+  background: hsl(var(--primary));
+  border: 2px solid hsl(var(--brutal-black));
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0F07B1;
-}
-
-/* Loading animation */
-.loading-block {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Subtle grid pattern for Studio Innate feel */
-.grid-pattern {
-  background-image: 
-    linear-gradient(rgba(21, 13, 247, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(21, 13, 247, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* Block elements start invisible for fade-in */
-.block-fade {
-  opacity: 0;
-  transform: translateY(20px) scale(0.95);
+  background: hsl(var(--primary-dark));
 }
