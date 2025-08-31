@@ -1,9 +1,11 @@
 # 🚀 Squill - Serverless Billing Automation Platform
 
-[![AWS](https://img.shields.io/badge/AWS-Serverless-orange)](https://aws.amazon.com/)
-[![React](https://img.shields.io/badge/React-18.0-blue)](https://reactjs.org/)
-[![Python](https://img.shields.io/badge/Python-3.12-green)](https://python.org/)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)](http://squill-frontend-bucket-1756485949914.s3-website-us-east-1.amazonaws.com)
+
+  ![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
+  ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+  ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=yellow)
+  ![Serverless](https://img.shields.io/badge/Serverless-FD5750?style=for-the-badge&logo=serverless&logoColor=white)
+  ![Status](https://img.shields.io/badge/Status-2ECC71?style=for-the-badge&logo=amazon-s3&logoColor=white)
 
 **Modern serverless billing automation platform with React frontend and Python backend on AWS.**
 
