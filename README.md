@@ -1,4 +1,4 @@
-# 🚀 Squill - Serverless Billing Automation Platform
+# Squill - Serverless Billing Automation Platform
 
 
   ![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
@@ -10,14 +10,14 @@
 **Modern serverless billing automation platform with React frontend and Python backend on AWS.**
 
 
-## ✨ Features
-- 📊 **Analytics Dashboard** - Real-time revenue & usage tracking
-- 👥 **Customer Management** - Profile & billing cycle management  
-- 🧾 **Invoice System** - Automated PDF generation & email delivery
-- 📈 **Usage Tracking** - API calls, storage, bandwidth monitoring
-- ⚙️ **Automation** - Scheduled billing & threshold alerts
+## Features
+- **Analytics Dashboard** - Real-time revenue & usage tracking
+- **Customer Management** - Profile & billing cycle management  
+- **Invoice System** - Automated PDF generation & email delivery
+- **Usage Tracking** - API calls, storage, bandwidth monitoring
+- **Automation** - Scheduled billing & threshold alerts
 
-## 🏗️ Tech Stack
+## Tech Stack
 - **Frontend**: React 18, responsive UI
 - **Backend**: Python 3.12, AWS Lambda
 - **Database**: DynamoDB
@@ -25,7 +25,7 @@
 - **API**: API Gateway with CORS
 - **Monitoring**: CloudWatch
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 18+, Python 3.12+
@@ -72,7 +72,7 @@ POST /customers      # Create customer
 POST /invoice        # Generate invoice
 ```
 
-## 📁 Project Structure
+## Project Structure
 ```
 Squill/
 ├── frontend/           # React app
@@ -83,7 +83,7 @@ Squill/
 └── package.json       # Node deps
 ```
 
-## 🔧 Available Scripts
+## Available Scripts
 ```bash
 npm run deploy:prod        # Deploy backend
 npm run deploy:frontend    # Deploy frontend  
@@ -93,7 +93,7 @@ npm run verify:deployment # Test deployment
 npm run logs              # View logs
 ```
 
-## ⚙️ Environment Setup
+## Environment Setup
 ```bash
 # .env file
 AWS_REGION=us-east-1
@@ -102,26 +102,20 @@ CUSTOMERS_TABLE=Customers-prod
 USAGE_EVENTS_TABLE=UsageEvents-prod
 ```
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 **Lambda Size Error**: Use `npm run complete:day7`  
 **S3 Access Issues**: Run `npm run fix:s3`  
 **API Errors**: Check `npm run logs`
 
-## 📊 Production Status
-- ✅ **Frontend**: Live on S3 static hosting
-- ✅ **Backend**: Serverless API deployed  
-- ✅ **Database**: DynamoDB tables created
-- ✅ **Monitoring**: CloudWatch configured
-- ✅ **Public Access**: Website accessible
+## Production Status
+- **Frontend**: Live on S3 static hosting
+- **Backend**: Serverless API deployed  
+- **Database**: DynamoDB tables created
+- **Monitoring**: CloudWatch configured
+- **Public Access**: Website accessible
 
-## 🤝 Contributing
-1. Fork repository
-2. Create feature branch
-3. Submit pull request
 
-## 📄 License
-MIT License - see [LICENSE](LICENSE) file.
 
 ---
 **Built in 7 days | Production Ready | Serverless Architecture**
